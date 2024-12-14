@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use App\Models\Doctor;
 
 class PatientController extends Controller
 {
@@ -15,29 +16,30 @@ class PatientController extends Controller
 
     public function create()
     {
-        return view('patients.create');
+        $patients = Patient::all(); 
+        $doctors = Doctor::all();   
+    
+        return view('patients.create', compact('patients', 'doctors'));
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:patients',
-            'address' => 'required|string',
-            'emergency_contact' => 'required|string',
-            'blood_type' => 'nullable|string',
-            'allergies' => 'nullable|string',
-        ]);
-
-        Patient::create($validated);
-
-        return redirect()->route('patients.index')
-            ->with('success', 'Patient created successfully.');
-    }
+        {
+            $validated = $request->validate([
+                'registration_number' => 'required|string|unique:patients',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'date_of_birth' => 'required|date',
+                'gender' => 'required|in:male,female,other',
+                'phone_number' => 'required|string|max:20',
+                'address' => 'required|string',
+            ]);
+        
+            Patient::create($validated);
+        
+            return redirect()->route('patients.index')
+                ->with('success', 'Patient created successfully.');
+        }
+        
 
     public function show(Patient $patient)
     {
@@ -56,19 +58,17 @@ class PatientController extends Controller
             'last_name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'gender' => 'required|in:male,female,other',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:patients,email,'.$patient->id,
+            'phone_number' => 'required|string|max:20',
+            'email' => 'required|email|unique:patients,email,' . $patient->id,
             'address' => 'required|string',
-            'emergency_contact' => 'required|string',
-            'blood_type' => 'nullable|string',
-            'allergies' => 'nullable|string',
         ]);
-
+    
         $patient->update($validated);
-
+    
         return redirect()->route('patients.index')
             ->with('success', 'Patient updated successfully.');
     }
+    
 
     public function destroy(Patient $patient)
     {

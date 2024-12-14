@@ -79,7 +79,6 @@ class MedicalRecordController extends Controller
         ]);
 
         if ($request->hasFile('attachments')) {
-            // Delete old attachments
             if ($medicalRecord->attachments) {
                 foreach ($medicalRecord->attachments as $attachment) {
                     Storage::delete($attachment);
@@ -102,7 +101,6 @@ class MedicalRecordController extends Controller
 
     public function destroy(MedicalRecord $medicalRecord)
     {
-        // Delete attachments
         if ($medicalRecord->attachments) {
             foreach ($medicalRecord->attachments as $attachment) {
                 Storage::delete($attachment);

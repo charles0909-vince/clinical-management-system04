@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
@@ -16,17 +14,18 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('specialization');
-            $table->string('license_number')->unique();
             $table->string('email')->unique();
             $table->string('phone');
-            $table->text('bio')->nullable();
+            $table->string('qualification')->nullable();
+            $table->integer('experience')->nullable();
+            $table->string('photo')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
+        
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('doctors');

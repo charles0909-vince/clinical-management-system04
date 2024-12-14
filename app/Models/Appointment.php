@@ -31,4 +31,18 @@ class Appointment extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
+
+const STATUS_SCHEDULED = 'scheduled';
+const STATUS_COMPLETED = 'completed';
+const STATUS_CANCELLED = 'cancelled';
+
+public static function getStatuses()
+{
+    return [
+        self::STATUS_SCHEDULED,
+        self::STATUS_COMPLETED,
+        self::STATUS_CANCELLED,
+    ];
+}
+
 }

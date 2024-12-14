@@ -34,19 +34,20 @@ class PrescriptionController extends Controller
             'prescription_date' => 'required|date',
             'diagnosis' => 'required|string',
             'medications' => 'required|array',
-            'medications.*.id' => 'required|exists:inventory,id',
-            'medications.*.dosage' => 'required|string',
-            'medications.*.frequency' => 'required|string',
             'instructions' => 'required|string',
             'notes' => 'nullable|string',
-            'status' => 'required|in:active,completed,cancelled'
+            'status' => 'required|in:active,completed,cancelled',
         ]);
+    
 
+        $validated['medications'] = json_encode($request->input('medications'));
+    
         Prescription::create($validated);
-
+    
         return redirect()->route('prescriptions.index')
             ->with('success', 'Prescription created successfully.');
     }
+    
 
     public function show(Prescription $prescription)
     {

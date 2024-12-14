@@ -24,11 +24,17 @@ class DoctorController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'specialization' => 'required|string|max:255',
-            'license_number' => 'required|string|unique:doctors',
             'email' => 'required|email|unique:doctors',
             'phone' => 'required|string|max:20',
-            'bio' => 'nullable|string',
+            'qualification' => 'nullable|string',
+            'experience' => 'nullable|integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'status' => 'required|in:active,inactive',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('photos', 'public');
+        }
 
         Doctor::create($validated);
 
@@ -71,4 +77,5 @@ class DoctorController extends Controller
         return redirect()->route('doctors.index')
             ->with('success', 'Doctor deleted successfully.');
     }
+    
 }

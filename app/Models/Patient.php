@@ -4,27 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Patient extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'date_of_birth',
-        'gender',
-        'phone',
-        'email',
+        'registration_number', 
+        'first_name', 
+        'last_name', 
+        'date_of_birth', 
+        'gender', 
+        'phone_number', 
         'address',
-        'emergency_contact',
-        'blood_type',
-        'allergies'
     ];
+    
 
     protected $casts = [
         'date_of_birth' => 'date',
     ];
+    protected static function booted()
+    {
+        static::creating(function ($patient) {
+            $patient->registration_number = 'REG-' . Str::random(8);
+        });
+    }
 
     public function appointments()
     {
@@ -45,4 +50,6 @@ class Patient extends Model
     {
         return "{$this->first_name} {$this->last_name}";
     }
+    public $timestamps = false;
+
 }

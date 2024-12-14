@@ -17,12 +17,12 @@ class Prescription extends Model
         'medications',
         'instructions',
         'notes',
-        'status'
+        'status',
     ];
 
     protected $casts = [
         'prescription_date' => 'datetime',
-        'medications' => 'array'
+        'medications' => 'array',
     ];
 
     public function patient()
