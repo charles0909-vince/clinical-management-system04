@@ -11,11 +11,18 @@ return new class extends Migration
         if (!Schema::hasTable('inventories')) {
             Schema::create('inventories', function (Blueprint $table) {
                 $table->id();
-                $table->string('type');
                 $table->string('name');
+                $table->string('type');
+                $table->text('description')->nullable();
                 $table->integer('quantity');
+                $table->string('unit');
+                $table->decimal('price', 10, 2);
+                $table->string('supplier')->nullable();
+                $table->integer('reorder_level');
+                $table->date('expiry_date')->nullable();
                 $table->timestamps();
             });
+            
         }
     }
     

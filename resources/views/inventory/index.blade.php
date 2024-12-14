@@ -41,7 +41,7 @@
                         <td class="px-6 py-4">{{ $item->name }}</td>
                         <td class="px-6 py-4">{{ ucfirst($item->type) }}</td>
                         <td class="px-6 py-4">{{ $item->quantity }} {{ $item->unit }}</td>
-                        <td class="px-6 py-4">${{ number_format($item->price, 2) }}</td>
+                        <td class="px-6 py-4">₱{{ number_format($item->price, 2) }}</td>
                         <td class="px-6 py-4">
                             @if($item->quantity <= $item->reorder_level)
                                 <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Low Stock</span>

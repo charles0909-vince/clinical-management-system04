@@ -19,16 +19,16 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('medicalrecords.store') }}" method="POST">
+                    <form action="{{ route('medical-records.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="patient_id">Patient</label>
                             <select class="form-control" id="patient_id" name="patient_id" required>
                                 <option value="">Select Patient</option>
                                 @foreach($patients as $patient)
-                                    <option value="{{ $patient->id }}" {{ old('patient_id') == $patient->id ? 'selected' : '' }}>
-                                        {{ $patient->name }}
-                                    </option>
+                                <option value="{{ $patient->id }}" {{ old('patient_id') == $patient->id ? 'selected' : '' }}>
+                                {{ $patient->full_name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -60,9 +60,15 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="doctor">Doctor</label>
-                            <input type="text" class="form-control" id="doctor" name="doctor" 
-                                   value="{{ old('doctor') }}" required>
+                            <label for="doctor_id">Doctor</label>
+                            <select class="form-control" id="doctor_id" name="doctor_id" required>
+                            <option value="">Select Doctor</option>
+                        @foreach($doctors as $doctor)
+                            <option value="{{ $doctor->id }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                            Dr. {{ $doctor->first_name }} {{ $doctor->last_name }} ({{ $doctor->specialization }})
+                            </option>
+                        @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
@@ -72,7 +78,7 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Save Record</button>
-                            <a href="{{ route('medicalrecords.index') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('medical-records.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>

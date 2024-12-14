@@ -30,7 +30,13 @@ Route::get('/prescriptions/{prescription}/print', [PrescriptionController::class
 
 Route::resource('doctors', DoctorController::class);
 
+Route::resource('inventory', InventoryController::class);
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');   
+Route::get('/inventory/{inventory}/pdf', [InventoryController::class, 'generatePDF'])->name('inventory.pdf');
+Route::get('/inventory/low-stock', [InventoryController::class, 'lowStock'])->name('inventory.low-stock');
+Route::get('/inventory/expiring-soon', [InventoryController::class, 'expiringSoon'])->name('inventory.expiring-soon');
+
 
 Route::resource('reports', ReportController::class);
 Route::get('/reports/{report}/pdf', [ReportController::class, 'generatePDF'])->name('reports.pdf');
@@ -49,7 +55,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('medicalrecords', MedicalRecordController::class);
-
+Route::get('medical-records/{medical_record}/edit', [MedicalRecordController::class, 'edit'])
+    ->name('medical-records.edit');
+Route::post('medicalrecords', [MedicalRecordController::class, 'store'])->name('medicalrecords.store');
+Route::post('medicalrecords/{medicalrecord}/notes', [MedicalRecordController::class, 'addNotes'])->name('medicalrecords.notes');
+Route::put('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'update'])->name('medicalrecords.update');
+Route::patch('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'update'])->name('medicalrecords.update'); 
+Route::delete('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'destroy'])->name('medicalrecords.destroy');
 
 Route::resource('appointments', AppointmentController::class);
 Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');

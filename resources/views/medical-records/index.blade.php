@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3>Medical Records</h3>
-                    <a href="{{ route('medicalrecords.create') }}" class="btn btn-primary">Add New Record</a>
+                    <a href="{{ route('medical-records.create') }}" class="btn btn-primary">Add New Record</a>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -17,7 +17,7 @@
                     @endif
 
                     <div class="mb-3">
-                        <form action="{{ route('medicalrecords.index') }}" method="GET" class="form-inline">
+                        <form action="{{ route('medical-records.index') }}" method="GET" class="form-inline">
                             <input type="text" name="search" class="form-control mr-2" placeholder="Search records..." value="{{ request('search') }}">
                             <button type="submit" class="btn btn-outline-primary">Search</button>
                         </form>
@@ -45,9 +45,9 @@
                                 <td>{{ Str::limit($record->treatment, 30) }}</td>
                                 <td>{{ $record->doctor }}</td>
                                 <td>
-                                    <a href="{{ route('medicalrecords.show', $record->id) }}" class="btn btn-info btn-sm">View</a>
-                                    <a href="{{ route('medicalrecords.edit', $record->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('medicalrecords.destroy', $record->id) }}" method="POST" class="d-inline">
+                                    <a href="{{ route('medical-records.show', $record->id) }}" class="btn btn-info btn-sm">View</a>
+                                    <a href="{{ route('medical-records.edit', $record->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('medical-records.destroy', $record->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>

@@ -53,10 +53,12 @@ class MedicalRecordController extends Controller
             ->with('success', 'Medical record created successfully.');
     }
 
-    public function show(MedicalRecord $medicalRecord)
+    public function show($id)
     {
+        $medicalRecord = MedicalRecord::findOrFail($id); 
         return view('medical-records.show', compact('medicalRecord'));
     }
+    
 
     public function edit(MedicalRecord $medicalRecord)
     {
@@ -64,6 +66,7 @@ class MedicalRecordController extends Controller
         $doctors = Doctor::all();
         return view('medical-records.edit', compact('medicalRecord', 'patients', 'doctors'));
     }
+    
 
     public function update(Request $request, MedicalRecord $medicalRecord)
     {

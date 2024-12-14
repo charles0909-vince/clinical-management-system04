@@ -12,11 +12,11 @@
                     <table class="table">
                         <tr>
                             <th width="200">Patient Name:</th>
-                            <td>{{ $medicalRecord->patient->name }}</td>
+                            <td>{{ $medicalRecord->patient ? $medicalRecord->patient->name : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Visit Date:</th>
-                            <td>{{ $medicalRecord->visit_date }}</td>
+                            <td>{{ $medicalRecord->visit_date ? $medicalRecord->visit_date->format('Y-m-d') : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Symptoms:</th>
@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <th>Doctor:</th>
-                            <td>{{ $medicalRecord->doctor }}</td>
+                            <td>{{ $medicalRecord->doctor ? $medicalRecord->doctor->name : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Additional Notes:</th>
@@ -44,18 +44,18 @@
                         </tr>
                         <tr>
                             <th>Created At:</th>
-                            <td>{{ $medicalRecord->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td>{{ $medicalRecord->created_at ? $medicalRecord->created_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Last Updated:</th>
-                            <td>{{ $medicalRecord->updated_at->format('Y-m-d H:i:s') }}</td>
+                            <td>{{ $medicalRecord->updated_at ? $medicalRecord->updated_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
                         </tr>
                     </table>
 
                     <div class="mt-3">
-                        <a href="{{ route('medicalrecords.edit', $medicalRecord->id) }}" class="btn btn-warning">Edit</a>
-                        <a href="{{ route('medicalrecords.index') }}" class="btn btn-secondary">Back to List</a>
-                        <form action="{{ route('medicalrecords.destroy', $medicalRecord->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('medical-records.edit', $medicalRecord->id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ route('medical-records.index') }}" class="btn btn-secondary">Back to List</a>
+                        <form action="{{ route('medical-records.destroy', $medicalRecord->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

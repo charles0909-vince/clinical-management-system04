@@ -8,12 +8,18 @@ return new class extends Migration
 {
 
     public function up(): void
-    {
-        Schema::create('medical_records', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('medical_records', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('patient_id')->constrained()->onDelete('cascade');
+        $table->foreignId('doctor_id')->constrained()->onDelete('cascade'); 
+        $table->text('diagnosis');
+        $table->text('treatment');
+        $table->text('notes')->nullable();
+        $table->date('visit_date');
+        $table->timestamps();
+    });
+}
 
  
     public function down(): void

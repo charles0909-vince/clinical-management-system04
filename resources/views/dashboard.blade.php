@@ -55,29 +55,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($recent_appointments as $appointment)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="px-6 py-4">{{ $appointment->patient->full_name }}</td>
-                                <td class="px-6 py-4">{{ $appointment->doctor->full_name }}</td>
-                                <td class="px-6 py-4">{{ $appointment->appointment_date->format('M d, Y') }}</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full 
-                                        {{ $appointment->status === 'completed' ? 'bg-green-100 text-green-800' : '' }}
-                                        {{ $appointment->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
-                                        {{ $appointment->status === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}">
-                                        {{ ucfirst($appointment->status) }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <a href="{{ route('appointments.show', $appointment->id) }}" class="text-blue-600 hover:underline">View</a>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="5" class="px-6 py-4 text-center text-gray-500">No recent appointments found.</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
+    @forelse($recent_appointments as $appointment)
+    <tr class="bg-white border-b hover:bg-gray-50">
+        <td class="px-6 py-4">
+            {{ $appointment->patient ? $appointment->patient->full_name : 'N/A' }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $appointment->doctor ? $appointment->doctor->full_name : 'N/A' }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $appointment->appointment_date ? $appointment->appointment_date->format('M d, Y') : 'N/A' }}
+        </td>
+        <td class="px-6 py-4">
+            <span class="px-2 py-1 text-xs font-medium rounded-full 
+                {{ $appointment->status === 'completed' ? 'bg-green-100 text-green-800' : '' }}
+                {{ $appointment->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
+                {{ $appointment->status === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}">
+                {{ ucfirst($appointment->status) }}
+            </span>
+        </td>
+        <td class="px-6 py-4 text-right">
+            <a href="{{ route('appointments.show', $appointment->id) }}" class="text-blue-600 hover:underline">View</a>
+        </td>
+    </tr>
+    @empty
+    <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">No recent appointments found.</td>
+    </tr>
+    @endforelse
+</tbody>
+
                     </table>
                 </div>
             </div>
@@ -97,21 +104,28 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($recent_medical_records as $record)
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">{{ $record->patient->name }}</td>
-                    <td class="px-6 py-4">{{ $record->doctor->name }}</td>
-                    <td class="px-6 py-4">{{ $record->visit_date->format('M d, Y') }}</td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="{{ route('medicalrecords.show', $record->id) }}" class="text-blue-600 hover:underline">View</a>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">No recent medical records found.</td>
-                </tr>
-                @endforelse
-            </tbody>
+    @forelse($recent_medical_records as $record)
+    <tr class="bg-white border-b hover:bg-gray-50">
+        <td class="px-6 py-4">
+            {{ $record->patient ? $record->patient->name : 'N/A' }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $record->doctor ? $record->doctor->name : 'N/A' }}
+        </td>
+        <td class="px-6 py-4">
+            {{ $record->visit_date ? $record->visit_date->format('M d, Y') : 'N/A' }}
+        </td>
+        <td class="px-6 py-4 text-right">
+            <a href="{{ route('medicalrecords.show', $record->id) }}" class="text-blue-600 hover:underline">View</a>
+        </td>
+    </tr>
+    @empty
+    <tr>
+        <td colspan="4" class="px-6 py-4 text-center text-gray-500">No recent medical records found.</td>
+    </tr>
+    @endforelse
+</tbody>
+
         </table>
     </div>
 </div>
@@ -121,12 +135,13 @@
             <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
                 <h3 class="text-2xl font-semibold text-blue-800 mb-6">Quick Actions</h3>
                 <div class="grid grid-cols-2 gap-6">
-    @foreach ([
+            @foreach ([
         ['New Patient', 'patients.create', 'user-plus', 'blue'],
         ['New Appointment', 'appointments.create', 'calendar-plus', 'green'],
         ['New Prescription', 'prescriptions.create', 'file-medical', 'purple'],
         ['New Bill', 'billing.create', 'file-invoice-dollar', 'orange'],
-        ['New Medical Record', 'medicalrecords.create', 'file-alt', 'red'], 
+        ['New Medical Record', 'medicalrecords.create', 'file-alt', 'red'],
+        ['New Inventory Item', 'inventory.create', 'box', 'indigo'],
     ] as [$label, $route, $icon, $color])
         <a 
             href="{{ route($route) }}" 

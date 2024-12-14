@@ -19,7 +19,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('medicalrecords.update', $medicalRecord->id) }}" method="POST">
+                    <form action="{{ route('medical-records.update', $medicalRecord->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         
@@ -73,7 +73,7 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update Record</button>
-                            <a href="{{ route('medicalrecords.index') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('medical-records.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
