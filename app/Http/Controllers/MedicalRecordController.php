@@ -10,13 +10,28 @@ use Illuminate\Support\Facades\Storage;
 
 class MedicalRecordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $records = MedicalRecord::with(['patient', 'doctor'])
+      
+        $query = MedicalRecord::query();
+    
+        if ($request->has('search') && $request->search !== null) {
+            $query->whereHas('patient', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            })->orWhereHas('doctor', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
+        }
+    
+        
+        $medicalRecords = $query->with(['patient', 'doctor'])
             ->latest()
             ->paginate(10);
-        return view('medical-records.index', compact('records'));
+    
+      
+        return view('medical-records.index', compact('medicalRecords'));
     }
+    
 
     public function create()
     {

@@ -39,11 +39,11 @@
                             @foreach($medicalRecords as $record)
                             <tr>
                                 <td>{{ $record->id }}</td>
-                                <td>{{ $record->patient->name }}</td>
+                                <td>{{ $record->patient->name  }}</td>
+                                <td>{{ $record->doctor->name   }}</td>
                                 <td>{{ $record->visit_date }}</td>
                                 <td>{{ Str::limit($record->diagnosis, 30) }}</td>
                                 <td>{{ Str::limit($record->treatment, 30) }}</td>
-                                <td>{{ $record->doctor }}</td>
                                 <td>
                                     <a href="{{ route('medical-records.show', $record->id) }}" class="btn btn-info btn-sm">View</a>
                                     <a href="{{ route('medical-records.edit', $record->id) }}" class="btn btn-warning btn-sm">Edit</a>
