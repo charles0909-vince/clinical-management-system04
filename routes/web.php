@@ -58,14 +58,17 @@ Route::resource('medicalrecords', MedicalRecordController::class);
 Route::get('medical-records/{medical_record}/edit', [MedicalRecordController::class, 'edit'])
     ->name('medical-records.edit');
 Route::get('/medical-records', [MedicalRecordController::class, 'index'])->name('medical-records.index');
+Route::get('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'show'])->name('medical-records.show');
 Route::get('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'destroy'])->name('medical-records.destroy');
 Route::get('medicalrecords', [MedicalRecordController::class, 'create'])->name('medical-records.create');
-Route::get('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'show'])->name('medical-records.show');   
+Route::get('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'show'])->name('medical-records.show');
 Route::post('medicalrecords', [MedicalRecordController::class, 'store'])->name('medical-records.store');
 Route::post('medicalrecords/{medicalrecord}/notes', [MedicalRecordController::class, 'addNotes'])->name('medical-records.notes');
 Route::put('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'update'])->name('medical-records.update');
 Route::patch('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'update'])->name('medical-records.update'); 
 Route::delete('medicalrecords/{medicalrecord}', [MedicalRecordController::class, 'destroy'])->name('medical-records.destroy');
+
+Route::get('/medicalrecords/{id}', [MedicalRecordController::class, 'show'])->name('medicalrecords.show');
 
 Route::resource('appointments', AppointmentController::class);
 Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');

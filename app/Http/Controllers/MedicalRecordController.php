@@ -70,8 +70,8 @@ class MedicalRecordController extends Controller
 
     public function show($id)
     {
-        $medicalRecord = MedicalRecord::findOrFail($id); 
-        return view('medical-records.show', compact('medicalRecord'));
+        $medicalRecord = MedicalRecord::findOrFail($id);
+        return view('medicalrecords.show', compact('medicalRecord'));
     }
     
 

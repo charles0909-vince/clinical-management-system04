@@ -8,17 +8,7 @@ class PatientSeeder extends Seeder
 {
     public function run()
     {
-        Patient::create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'date_of_birth' => '1990-01-01',
-            'gender' => 'male',
-            'phone_number' => '1234567890',
-            'email' => 'john.doe@example.com',
-            'address' => '123 Main St, Anytown, USA',
-        ]);
-
-       
+        Patient::factory()->count(10)->create();
     }
 }
 
